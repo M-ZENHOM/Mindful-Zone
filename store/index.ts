@@ -1,6 +1,6 @@
 
 
-import type { Todo } from '@/types';
+import type { NoteType, Todo } from '@/types';
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -13,9 +13,11 @@ interface TodoStore {
     removeAllTodos: () => void;
 }
 interface NotesStore {
-    notes: string
+    notes: NoteType[]
     addNote: (title: string) => void;
-    deleteNote: () => void;
+    deleteNote: (id: number) => void;
+    deleteAll: () => void;
+
 
 }
 
@@ -49,29 +51,8 @@ export const useTodoStore = create<TodoStore>()(
             },
         }),
         {
-            name: 'todos', // Specify the name for the localStorage key
-            storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
-        }
-    )
-);
-export const useNotesStore = create<NotesStore>()(
-    persist<NotesStore>(
-        (set) => ({
-            notes: "",
-            addNote: (title: string) => {
-                set(() => ({
-                    notes: title,
-                }));
-            },
-            deleteNote: () => {
-                set(() => ({
-                    notes: "",
-                }));
-            },
-        }),
-        {
-            name: 'notes', // Specify the name for the localStorage key
-            storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
+            name: 'todos',
+            storage: createJSONStorage(() => localStorage),
         }
     )
 );

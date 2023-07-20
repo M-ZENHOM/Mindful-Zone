@@ -3,14 +3,14 @@ export interface Todo {
     title: string;
     completed: boolean;
 }
-export interface Note {
+export interface NoteType {
     id: number;
     title: string;
-    color: string;
 }
 
 export type statusType = {
-    todo: boolean,
-    timer: boolean,
+    todo: boolean
+    timer: boolean
     note: boolean
+
 }

@@ -7,11 +7,10 @@ import { statusType } from '@/types';
 
 
 interface SpeedDialProps {
-    statuses: statusType
     handleTodoStatusChange: (value: boolean) => void
     handleNoteStatusChange: (value: boolean) => void
 }
-const SpeedDial: FC<SpeedDialProps> = ({ statuses, handleTodoStatusChange, handleNoteStatusChange }) => {
+const SpeedDial: FC<SpeedDialProps> = ({ handleTodoStatusChange, handleNoteStatusChange }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const handleClick = (fnc: void) => {
         fnc

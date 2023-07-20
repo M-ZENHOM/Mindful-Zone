@@ -1,13 +1,11 @@
 import React from 'react';
-import { FC } from 'react'
-
 
 
 export const useStoreComponents = () => {
     const [statuses, setStatuses] = React.useState({
         todo: false,
         timer: false,
-        note: false,
+        note: false
     });
 
     // Function to update status for a given type
@@ -28,10 +26,12 @@ export const useStoreComponents = () => {
             todo: false,
             timer: false,
             note: false,
+
+
         }; // Return default values if 'storeComponents' key is not found in localStorage
     };
 
-    // Load statuses from localStorage on component mount
+    // Load statuses from localStorage on mount
     React.useEffect(() => {
         const storedStatuses = getStatusesFromLocalStorage();
         setStatuses(storedStatuses);
