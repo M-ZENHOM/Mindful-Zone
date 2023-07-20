@@ -1,15 +1,10 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import { ModeToggle } from './ModeToggle'
 import Wrapper from './Wrapper'
 import { Icons } from './Icons'
 import Link from 'next/link'
 
-
-interface SiteHeaderProps {
-
-}
-
-const SiteHeader: FC<SiteHeaderProps> = ({ }) => {
+const SiteHeader: FC = () => {
     return (
         <header className="sticky top-0 z-40 w-full border-b bg-background">
             <Wrapper className='flex justify-between items-center py-4'>

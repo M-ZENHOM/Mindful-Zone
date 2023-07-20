@@ -6,7 +6,7 @@ interface WrapperProps {
 }
 
 const Wrapper: FC<WrapperProps> = ({ children, className }) => {
-    return <div className={`${className} w-full max-w-[1360px] mx-auto p-2`}>{children}</div>
+    return <div className={`${className} w-full max-w-[1500px] mx-auto p-2`}>{children}</div>
 }
 
 export default Wrapper

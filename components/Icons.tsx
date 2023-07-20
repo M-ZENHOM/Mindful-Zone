@@ -18,12 +18,20 @@ import {
     Download,
     CheckCircle,
     Printer,
-    Trash2Icon
+    Trash2Icon,
+    ListTodo,
+    StickyNote,
+    Timer
+
+
 } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+    note: StickyNote,
+    timer: Timer,
+    todo: ListTodo,
     Delete: Trash2Icon,
     spinner: Loader,
     sun: SunMedium,

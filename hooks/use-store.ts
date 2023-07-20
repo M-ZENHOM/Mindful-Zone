@@ -1,23 +1,23 @@
+import { Note, Todo } from "@/types"
 import { useEffect, useState, useTransition } from "react"
 
-
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
 const useStoreFromLocalStorage = <T, F>(
   store: (callback: (state: T) => unknown) => unknown,
   callback: (state: T) => F
 ) => {
-  const result = store(callback) as Todo[]
-  const [data, setData] = useState<Todo[]>([])
+  const result = store(callback) as any
+  const [data, setData] = useState<any>([])
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
-    setData(result)
+    startTransition(() => {
+      setData(result)
+    })
   }, [result])
 
-  return data
+  return { data, isPending }
 }
 
 export default useStoreFromLocalStorage
+
+
