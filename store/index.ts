@@ -1,6 +1,4 @@
-
-
-import type { NoteType, Todo } from '@/types';
+import type { Todo } from '@/types';
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -12,14 +10,7 @@ interface TodoStore {
     deleteTodo: (id: number) => void;
     removeAllTodos: () => void;
 }
-interface NotesStore {
-    notes: NoteType[]
-    addNote: (title: string) => void;
-    deleteNote: (id: number) => void;
-    deleteAll: () => void;
 
-
-}
 
 
 export const useTodoStore = create<TodoStore>()(

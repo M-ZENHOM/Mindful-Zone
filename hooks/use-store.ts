@@ -1,4 +1,3 @@
-import { Note, Todo } from "@/types"
 import { useEffect, useState, useTransition } from "react"
 
 const useStoreFromLocalStorage = <T, F>(
