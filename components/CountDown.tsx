@@ -1,22 +1,19 @@
+"use client"
 import React, { FC } from 'react'
 import { Button } from './ui/button';
 import { formatTime } from '@/lib/utils';
-import { useTimerStore } from '@/store';
-import { statusType } from '@/types';
+import { useActiveStore, useTimerStore } from '@/store';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { useCountDown } from '@/hooks/useCountDown';
+import useLocalStorage from '@/hooks/useStore';
 
-interface TimerProps {
-    statuses: statusType
-    handleTimerStatusChange: (value: boolean) => void
-}
 
-const CountDown: FC<TimerProps> = ({ statuses, handleTimerStatusChange }) => {
+const CountDown: FC = () => {
+    const { timer, setTimerActive } = useLocalStorage(useActiveStore, (state) => state)
     const [inputTime, setInputTime] = React.useState('');
     const { isRunning, startTimer, pauseTimer, resetTimer, setTime } = useTimerStore();
     const time = useCountDown()
-
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -34,15 +31,13 @@ const CountDown: FC<TimerProps> = ({ statuses, handleTimerStatusChange }) => {
         }
     };
     const handleDelete = () => {
-        handleTimerStatusChange(false)
+        setTimerActive(false)
         resetTimer();
     }
 
-
-
     return (
         <>
-            {statuses.timer && (
+            {timer && (
                 <Card className="w-full max-w-sm h-full max-h-[300px] p-10 space-y-5 text-center rounded-xl relative">
                     <button className='absolute top-3 right-5 text-xl' onClick={handleDelete} >x</button>
                     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">{`${formatTime(time)}`}</h1>

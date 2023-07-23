@@ -19,6 +19,16 @@ interface TimerStore {
     setTime: (newTime: number) => void;
 
 }
+interface ActiveStore {
+    todo: boolean,
+    note: boolean,
+    timer: boolean,
+    setTodoActive: (value: boolean) => void
+    setTimerActive: (value: boolean) => void
+    setNoteActive: (value: boolean) => void
+
+
+}
 
 
 
@@ -76,3 +86,21 @@ export const useTimerStore = create<TimerStore>()(
         }
     )
 );
+
+
+export const useActiveStore = create<ActiveStore>()(
+    persist<ActiveStore>(
+        (set) => ({
+            todo: false,
+            note: false,
+            timer: false,
+            setTodoActive: (value: boolean) => set(() => ({ todo: value })),
+            setNoteActive: (value: boolean) => set(() => ({ note: value })),
+            setTimerActive: (value: boolean) => set(() => ({ timer: value })),
+        }),
+        {
+            name: 'activeComponents',
+            storage: createJSONStorage(() => localStorage),
+        }
+    )
+)
