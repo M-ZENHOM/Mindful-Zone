@@ -27,15 +27,17 @@ const CountDown: FC<TimerProps> = ({ statuses, handleTimerStatusChange }) => {
     };
     const handleStart = () => {
         const inputValue = Number(inputTime);
-        setTime(inputValue * 60);
-        startTimer();
-        setInputTime('')
-
+        if (inputValue > 0) {
+            setTime(inputValue * 60);
+            startTimer();
+            setInputTime('')
+        }
     };
     const handleDelete = () => {
         handleTimerStatusChange(false)
         resetTimer();
     }
+
 
 
     return (
@@ -46,7 +48,7 @@ const CountDown: FC<TimerProps> = ({ statuses, handleTimerStatusChange }) => {
                     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">{`${formatTime(time)}`}</h1>
                     {time === 0 && <Input type="text" onKeyUp={(e) => e.key === "Enter" && handleStart()} placeholder="Set ur timer in mins" defaultValue={inputTime} onChange={handleInputChange} />}
                     <div className='space-x-5'>
-                        <Button onClick={handleStart}>Start</Button>
+                        <Button disabled={time !== 0} onClick={handleStart}>Start</Button>
                         {time !== 0 && <Button onClick={pauseTimer}>{isRunning ? "Pause" : "Resume"}</Button>}
                         <Button disabled={time === 0} onClick={resetTimer}>Reset</Button>
                     </div>

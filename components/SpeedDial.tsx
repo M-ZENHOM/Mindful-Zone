@@ -3,14 +3,16 @@ import React from 'react';
 import { FC } from 'react'
 import { Icons } from './Icons';
 import { Button } from './ui/button';
+import { statusType } from '@/types';
 
 
 interface SpeedDialProps {
+    statuses: statusType
     handleTodoStatusChange: (value: boolean) => void
     handleNoteStatusChange: (value: boolean) => void
     handleTimerStatusChange: (value: boolean) => void
 }
-const SpeedDial: FC<SpeedDialProps> = ({ handleTodoStatusChange, handleNoteStatusChange, handleTimerStatusChange }) => {
+const SpeedDial: FC<SpeedDialProps> = ({ statuses, handleTodoStatusChange, handleNoteStatusChange, handleTimerStatusChange }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const handleClick = (fnc: void) => {
         fnc
@@ -23,13 +25,13 @@ const SpeedDial: FC<SpeedDialProps> = ({ handleTodoStatusChange, handleNoteStatu
             </Button>
 
             <div className={`flex flex-col items-start gap-4 mb-5 transition-all duration-500 ${isOpen ? ' opacity-100 translate-y-0' : ' opacity-0 translate-y-[50px]'}`}>
-                <Button onClick={() => handleClick(handleTodoStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
+                <Button disabled={statuses.todo} onClick={() => handleClick(handleTodoStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
                     <Icons.todo />
                 </Button>
-                <Button onClick={() => handleClick(handleNoteStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
+                <Button disabled={statuses.note} onClick={() => handleClick(handleNoteStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
                     <Icons.note />
                 </Button>
-                <Button onClick={() => handleClick(handleTimerStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
+                <Button disabled={statuses.timer} onClick={() => handleClick(handleTimerStatusChange(true))} variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center transition-opacity duration-300 z-10`} >
                     <Icons.timer />
                 </Button>
             </div>

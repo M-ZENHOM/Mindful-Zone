@@ -9,7 +9,6 @@ export const useCountDown = (interval = 1000) => {
     const onTimeEnd = () => {
         const audioElement = new Audio('/timerEnded.mp3');
         audioElement.play();
-
     }
 
     React.useEffect(() => {
@@ -17,8 +16,8 @@ export const useCountDown = (interval = 1000) => {
             intervalRef.current = setInterval(() => {
                 if (time > 0) useTimerStore.setState((state) => ({ time: state.time - 1 }));
             }, interval);
-        } else {
             if (time === 0) onTimeEnd()
+        } else {
             clearInterval(intervalRef.current)
         }
         return () => clearInterval(intervalRef.current);

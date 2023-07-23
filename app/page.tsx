@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <Wrapper >
-      <SpeedDial handleTodoStatusChange={handleTodoStatusChange} handleNoteStatusChange={handleNoteStatusChange} handleTimerStatusChange={handleTimerStatusChange} />
+      <SpeedDial statuses={statuses} handleTodoStatusChange={handleTodoStatusChange} handleNoteStatusChange={handleNoteStatusChange} handleTimerStatusChange={handleTimerStatusChange} />
       <div className="grid grid-cols-fluid gap-5 my-10">
         <Todo statuses={statuses} handleTodoStatusChange={handleTodoStatusChange} />
         <CountDown statuses={statuses} handleTimerStatusChange={handleTimerStatusChange} />

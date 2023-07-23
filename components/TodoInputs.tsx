@@ -14,7 +14,7 @@ interface TodoInputsProps {
 const TodoInputs: FC<TodoInputsProps> = ({ todos, deleteTodo, updateTodo }) => {
     return (
         <div className='space-y-5'>
-            {todos.map((todo) => (
+            {todos?.map((todo) => (
                 <div key={todo.id} className="items-top flex space-x-2 ">
                     <Checkbox onClick={() => updateTodo(todo.id)} checked={todo.completed} id="terms1" />
                     <div className="grid gap-1.5 leading-none w-full max-w-sm">

@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from "react"
+import { useEffect, useState } from "react"
 
 const useStoreFromLocalStorage = <T, F>(
   store: (callback: (state: T) => unknown) => unknown,
@@ -6,15 +6,12 @@ const useStoreFromLocalStorage = <T, F>(
 ) => {
   const result = store(callback) as any
   const [data, setData] = useState<any>([])
-  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
-    startTransition(() => {
-      setData(result)
-    })
+    setData(result)
   }, [result])
 
-  return { data, isPending }
+  return { data }
 }
 
 export default useStoreFromLocalStorage
