@@ -43,7 +43,7 @@ const CountDown: FC<TimerProps> = ({ statuses, handleTimerStatusChange }) => {
     return (
         <>
             {statuses.timer && (
-                <Card className="w-full max-w-sm p-10 space-y-5 text-center rounded-xl relative">
+                <Card className="w-full max-w-sm h-full max-h-[300px] p-10 space-y-5 text-center rounded-xl relative">
                     <button className='absolute top-3 right-5 text-xl' onClick={handleDelete} >x</button>
                     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">{`${formatTime(time)}`}</h1>
                     {time === 0 && <Input type="text" onKeyUp={(e) => e.key === "Enter" && handleStart()} placeholder="Set ur timer in mins" defaultValue={inputTime} onChange={handleInputChange} />}
