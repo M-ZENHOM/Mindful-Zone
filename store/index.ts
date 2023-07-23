@@ -10,6 +10,15 @@ interface TodoStore {
     deleteTodo: (id: number) => void;
     removeAllTodos: () => void;
 }
+interface TimerStore {
+    time: number;
+    isRunning: boolean;
+    startTimer: () => void;
+    pauseTimer: () => void;
+    resetTimer: () => void;
+    setTime: (newTime: number) => void;
+
+}
 
 
 
@@ -48,3 +57,22 @@ export const useTodoStore = create<TodoStore>()(
     )
 );
 
+export const useTimerStore = create<TimerStore>()(
+    persist<TimerStore>(
+        (set) => ({
+            time: 0,
+            isRunning: false,
+            setTime: (newTime: number) => set({ time: newTime, isRunning: false }),
+            startTimer: () => set({ isRunning: true }),
+            pauseTimer: () => set((state) => ({
+                isRunning: !state.isRunning
+            })),
+            resetTimer: () => set({ time: 0, isRunning: false }),
+        }),
+
+        {
+            name: 'timeCounter',
+            storage: createJSONStorage(() => localStorage),
+        }
+    )
+);

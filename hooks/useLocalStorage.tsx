@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 
 
 export const useStoreComponents = () => {
+
     const [statuses, setStatuses] = React.useState({
         todo: false,
         timer: false,
@@ -39,9 +40,12 @@ export const useStoreComponents = () => {
 
     // Update statuses in localStorage whenever they change
     React.useEffect(() => {
+
+
         updateStatusInLocalStorage('todo', statuses.todo);
         updateStatusInLocalStorage('timer', statuses.timer);
         updateStatusInLocalStorage('note', statuses.note);
+
     }, [statuses]);
 
     // Usage example: updating todo status
@@ -73,7 +77,8 @@ export const useStoreComponents = () => {
         setStatuses,
         handleTodoStatusChange,
         handleNoteStatusChange,
-        handleTimerStatusChange
+        handleTimerStatusChange,
+
     }
 }
 
