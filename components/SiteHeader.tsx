@@ -10,7 +10,7 @@ const SiteHeader: FC = () => {
             <Wrapper className='flex justify-between items-center py-4'>
                 <Link href='/' className='flex items-center space-x-3'>
                     <Icons.logo className="h-6 w-6" />
-                    <span className="inline-block font-bold">MindFul Zone</span>
+                    <span className="inline-block font-bold">Mindful Zone</span>
                 </Link>
                 <div className='flex items-center space-x-5'>
                     <Link href='https://github.com/M-ZENHOM' target='_blank'>

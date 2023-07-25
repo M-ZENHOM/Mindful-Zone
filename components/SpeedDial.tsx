@@ -3,17 +3,24 @@ import React from 'react';
 import { FC } from 'react'
 import { Icons } from './Icons';
 import { Button } from './ui/button';
-import useLocalStorage from '@/hooks/useStore';
-import { useActiveStore } from '@/store';
 
 
-const SpeedDial: FC = () => {
-    const { todo, note, timer, setTodoActive, setNoteActive, setTimerActive } = useLocalStorage(useActiveStore, (state) => state)
+interface IProps {
+    todo: boolean,
+    note: boolean,
+    timer: boolean,
+    setTodoActive: (value: boolean) => void
+    setNoteActive: (value: boolean) => void
+    setTimerActive: (value: boolean) => void
+}
+
+const SpeedDial: FC<IProps> = ({ todo, note, timer, setTodoActive, setNoteActive, setTimerActive }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const handleClick = (fnc: void) => {
         fnc
         setIsOpen(false)
     }
+
     return (
         <div className="flex flex-col-reverse fixed bottom-6 right-6 z-50">
             <Button variant='default' className={` w-14 h-14  rounded-full flex items-center justify-center z-10 transition-all duration-500 ${isOpen ? 'rotate-45' : ''}`} onClick={() => setIsOpen(!isOpen)}>

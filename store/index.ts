@@ -27,9 +27,7 @@ interface ActiveStore {
     setTimerActive: (value: boolean) => void
     setNoteActive: (value: boolean) => void
 
-
 }
-
 
 
 export const useTodoStore = create<TodoStore>()(
