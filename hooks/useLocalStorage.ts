@@ -11,7 +11,7 @@ const useLocalStorage = <T, F>(
     setData(result)
   }, [result])
 
-  return { ...data }
+  return data
 }
 
 export default useLocalStorage

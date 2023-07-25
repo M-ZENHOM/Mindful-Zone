@@ -1,44 +1,44 @@
 "use client"
 import React, { FC } from 'react'
 import { Input } from './ui/input'
-import { useTodoStore } from '@/store'
 import { Card } from './ui/card'
 import { Button } from './ui/button'
 import TodoInputs from './TodoInputs'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import { TodosType } from '@/types'
 
 
 interface IProps {
-    setTodoActive: (value: boolean) => void
+    todos: TodosType
+    Active: {
+        setTodoActive: () => void
+    }
 }
-const Todo: FC<IProps> = ({ setTodoActive }) => {
+const Todo: FC<IProps> = ({ Active, todos }) => {
     const todoRef = React.useRef<HTMLInputElement>(null)
-    const { todos, deleteTodo, addTodo, updateTodo, removeAllTodos } = useLocalStorage(useTodoStore, (state) => state)
 
     const handleAdd = (e: React.KeyboardEvent) => {
         const value = todoRef?.current?.value ?? "";
         if (e.key === "Enter" && value !== "") {
-            addTodo(value)
+            todos?.addTodo(value)
             if (todoRef.current) {
                 todoRef.current.value = "";
             }
         }
     }
     const handleDelete = () => {
-        setTodoActive(false)
-        removeAllTodos()
+        Active?.setTodoActive()
+        todos?.removeAllTodos()
     }
-
     return (
-        <Card className="w-full max-w-sm h-fit  p-10 space-y-5 rounded-xl relative">
+        <Card className="w-full max-w-sm h-fit min-h-[300px] p-10 space-y-5 rounded-xl relative">
             <button className='absolute top-3 right-5 text-xl' onClick={handleDelete} >x</button>
             <Input ref={todoRef} onKeyUp={handleAdd} type="text" placeholder="Enjoy with ur todos..." />
-            <TodoInputs todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
-            {todos?.length !== 0 && todos?.length >= 2 && (
-                <Button variant="destructive" onClick={() => removeAllTodos()} >Delete All</Button>
+            <TodoInputs todos={todos?.todos} updateTodo={todos?.updateTodo} deleteTodo={todos?.deleteTodo} />
+            {todos.todos?.length !== 0 && todos.todos?.length >= 2 && (
+                <Button variant="destructive" onClick={() => todos.removeAllTodos()} >Delete All</Button>
             )}
         </Card>
     )
 }
 
-export default Todo
+export default React.memo(Todo)

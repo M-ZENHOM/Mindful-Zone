@@ -1,33 +1,33 @@
 "use client"
-import React, { FC } from 'react'
+import React, { type FC } from 'react'
 import { Button } from './ui/button';
 import { formatTime } from '@/lib/utils';
-import { useTimerStore } from '@/store';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { useCountDown } from '@/hooks/useCountDown';
-import useLocalStorage from '@/hooks/useLocalStorage';
+import type { CounterType } from '@/types';
 
 interface IProps {
-    setTimerActive: (value: boolean) => void
+    counter: CounterType
+    Active: {
+        setTimerActive: () => void
+    }
 }
 
-const CountDown: FC<IProps> = ({ setTimerActive }) => {
+const CountDown: FC<IProps> = ({ counter, Active }) => {
     const timeRef = React.useRef<HTMLInputElement>(null)
-    const { isRunning, startTimer, pauseTimer, resetTimer, setTime } = useLocalStorage(useTimerStore, (state) => state)
-
     const time = useCountDown()
 
     const handleStart = () => {
         const inputValue = timeRef?.current?.value ?? "";
         if (/^\d*$/.test(inputValue) && Number(inputValue) > 0 && inputValue !== '') {
-            setTime(Number(inputValue) * 60);
-            startTimer();
+            counter?.setTime(Number(inputValue) * 60);
+            counter?.startTimer();
         }
     };
     const handleDelete = () => {
-        setTimerActive(false)
-        resetTimer();
+        Active?.setTimerActive()
+        counter?.resetTimer();
     }
 
     return (
@@ -37,13 +37,13 @@ const CountDown: FC<IProps> = ({ setTimerActive }) => {
             {time === 0 && <Input ref={timeRef} maxLength={4} type="text" onKeyUp={(e) => e.key === "Enter" && handleStart()} placeholder="Set ur timer in mins" />}
             <div className='space-x-5'>
                 <Button disabled={time !== 0} onClick={handleStart}>Start</Button>
-                {time !== 0 && <Button onClick={pauseTimer}>{isRunning ? "Pause" : "Resume"}</Button>}
-                <Button disabled={time === 0} onClick={resetTimer}>Reset</Button>
+                {time !== 0 && <Button onClick={counter?.pauseTimer}>{counter?.isRunning ? "Pause" : "Resume"}</Button>}
+                <Button disabled={time === 0} onClick={counter?.resetTimer}>Reset</Button>
             </div>
         </Card>
     )
 }
 
-export default CountDown
+export default React.memo(CountDown)
 
 

@@ -14,3 +14,26 @@ export type statusType = {
     note: boolean
 
 }
+export type TodosType = {
+    todos: [],
+    setTodoActive: () => void
+    addTodo: (value: string) => void
+    updateTodo: () => void
+    deleteTodo: () => void
+    removeAllTodos: () => void
+}
+export type CounterType = {
+    startTimer: () => void
+    pauseTimer: () => void
+    resetTimer: () => void
+    setTime: (value: number) => void
+    isRunning: boolean
+}
+export type ActiveType = {
+    todo: boolean,
+    note: boolean,
+    timer: boolean,
+    setTodoActive: () => void
+    setNoteActive: () => void
+    setTimerActive: () => void
+}

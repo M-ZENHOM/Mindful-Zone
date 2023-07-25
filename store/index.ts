@@ -1,4 +1,4 @@
-import type { Todo } from '@/types';
+import type { ActiveType, Todo } from '@/types';
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -17,17 +17,8 @@ interface TimerStore {
     pauseTimer: () => void;
     resetTimer: () => void;
     setTime: (newTime: number) => void;
-
 }
-interface ActiveStore {
-    todo: boolean,
-    note: boolean,
-    timer: boolean,
-    setTodoActive: () => void
-    setTimerActive: () => void
-    setNoteActive: () => void
 
-}
 
 
 export const useTodoStore = create<TodoStore>()(
@@ -82,7 +73,7 @@ export const useTimerStore = create<TimerStore>()(
     )
 );
 
-export const useActiveStore = create<ActiveStore>()(
+export const useActiveStore = create<ActiveType>()(
     persist(
         (set, get) => ({
             todo: false,
