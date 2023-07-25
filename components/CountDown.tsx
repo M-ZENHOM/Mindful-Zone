@@ -6,6 +6,7 @@ import { useTimerStore } from '@/store';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
 import { useCountDown } from '@/hooks/useCountDown';
+import useLocalStorage from '@/hooks/useLocalStorage';
 
 interface IProps {
     setTimerActive: (value: boolean) => void
@@ -13,7 +14,8 @@ interface IProps {
 
 const CountDown: FC<IProps> = ({ setTimerActive }) => {
     const timeRef = React.useRef<HTMLInputElement>(null)
-    const { isRunning, startTimer, pauseTimer, resetTimer, setTime } = useTimerStore();
+    const { isRunning, startTimer, pauseTimer, resetTimer, setTime } = useLocalStorage(useTimerStore, (state) => state)
+
     const time = useCountDown()
 
     const handleStart = () => {

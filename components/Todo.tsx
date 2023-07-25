@@ -5,6 +5,7 @@ import { useTodoStore } from '@/store'
 import { Card } from './ui/card'
 import { Button } from './ui/button'
 import TodoInputs from './TodoInputs'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 
 interface IProps {
@@ -12,8 +13,7 @@ interface IProps {
 }
 const Todo: FC<IProps> = ({ setTodoActive }) => {
     const todoRef = React.useRef<HTMLInputElement>(null)
-    const { todos, deleteTodo, addTodo, updateTodo, removeAllTodos } = useTodoStore((state => state))
-
+    const { todos, deleteTodo, addTodo, updateTodo, removeAllTodos } = useLocalStorage(useTodoStore, (state) => state)
 
     const handleAdd = (e: React.KeyboardEvent) => {
         const value = todoRef?.current?.value ?? "";
@@ -27,7 +27,6 @@ const Todo: FC<IProps> = ({ setTodoActive }) => {
     const handleDelete = () => {
         setTodoActive(false)
         removeAllTodos()
-
     }
 
     return (
@@ -35,7 +34,7 @@ const Todo: FC<IProps> = ({ setTodoActive }) => {
             <button className='absolute top-3 right-5 text-xl' onClick={handleDelete} >x</button>
             <Input ref={todoRef} onKeyUp={handleAdd} type="text" placeholder="Enjoy with ur todos..." />
             <TodoInputs todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
-            {todos.length !== 0 && todos.length >= 2 && (
+            {todos?.length !== 0 && todos?.length >= 2 && (
                 <Button variant="destructive" onClick={() => removeAllTodos()} >Delete All</Button>
             )}
         </Card>

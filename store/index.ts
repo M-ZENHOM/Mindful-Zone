@@ -1,6 +1,6 @@
 import type { Todo } from '@/types';
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 
 interface TodoStore {
@@ -23,16 +23,16 @@ interface ActiveStore {
     todo: boolean,
     note: boolean,
     timer: boolean,
-    setTodoActive: (value: boolean) => void
-    setTimerActive: (value: boolean) => void
-    setNoteActive: (value: boolean) => void
+    setTodoActive: () => void
+    setTimerActive: () => void
+    setNoteActive: () => void
 
 }
 
 
 export const useTodoStore = create<TodoStore>()(
     persist<TodoStore>(
-        (set) => ({
+        (set, get) => ({
             todos: [],
             addTodo: (title: string) => {
                 set((state) => ({
@@ -60,14 +60,13 @@ export const useTodoStore = create<TodoStore>()(
         }),
         {
             name: 'todos',
-            storage: createJSONStorage(() => localStorage),
         }
     )
 );
 
 export const useTimerStore = create<TimerStore>()(
     persist<TimerStore>(
-        (set) => ({
+        (set, get) => ({
             time: 0,
             isRunning: false,
             setTime: (newTime: number) => set({ time: newTime, isRunning: false }),
@@ -77,28 +76,25 @@ export const useTimerStore = create<TimerStore>()(
             })),
             resetTimer: () => set({ time: 0, isRunning: false }),
         }),
-
         {
             name: 'timeCounter',
-            storage: createJSONStorage(() => localStorage),
         }
     )
 );
 
-
 export const useActiveStore = create<ActiveStore>()(
-    persist<ActiveStore>(
-        (set) => ({
+    persist(
+        (set, get) => ({
             todo: false,
             note: false,
             timer: false,
-            setTodoActive: (value: boolean) => set(() => ({ todo: value })),
-            setNoteActive: (value: boolean) => set(() => ({ note: value })),
-            setTimerActive: (value: boolean) => set(() => ({ timer: value })),
+            setTodoActive: () => set((state) => ({ todo: !state.todo })),
+            setNoteActive: () => set((state) => ({ note: !state.note })),
+            setTimerActive: () => set((state) => ({ timer: !state.timer })),
+
         }),
         {
-            name: 'activeComponents',
-            storage: createJSONStorage(() => localStorage),
+            name: 'active-components',
         }
     )
 )

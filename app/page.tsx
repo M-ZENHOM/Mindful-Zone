@@ -6,7 +6,7 @@ import Todo from "@/components/Todo";
 import Wrapper from "@/components/Wrapper";
 import CountDown from "@/components/CountDown";
 import { useActiveStore } from "@/store";
-import useLocalStorage from "@/hooks/useStore";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function Home() {
   const { todo, note, timer, setTodoActive, setNoteActive, setTimerActive } = useLocalStorage(useActiveStore, (state) => state)
