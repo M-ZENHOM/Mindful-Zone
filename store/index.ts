@@ -10,6 +10,13 @@ interface TodoStore {
     deleteTodo: (id: number) => void;
     removeAllTodos: () => void;
 }
+interface NotesStore {
+    notes: Todo[];
+    addNote: (title: string) => void;
+    updateNote: (id: number, title: string) => void;
+    deleteNote: (id: number) => void;
+    removeAllNotes: () => void
+}
 interface TimerStore {
     time: number;
     isRunning: boolean;
@@ -54,6 +61,39 @@ export const useTodoStore = create<TodoStore>()(
         }
     )
 );
+export const useNotesStore = create<NotesStore>()(
+    persist<NotesStore>(
+        (set, get) => ({
+            notes: [],
+            addNote: (title: string) => {
+                set((state) => ({
+                    notes: [
+                        ...state.notes,
+                        { id: Date.now(), title, completed: false, color: "#" + Math.floor(Math.random() * 16777215).toString(16) },
+                    ],
+                }));
+            },
+            updateNote: (id: number, newTitle: string) => {
+                set((state) => ({
+                    notes: state.notes.map((note) =>
+                        note.id === id ? { ...note, title: newTitle } : note
+                    ),
+                }));
+            },
+            deleteNote: (id: number) => {
+                set((state) => ({
+                    notes: state.notes.filter((todo) => todo.id !== id),
+                }));
+            },
+            removeAllNotes: () => {
+                set(() => ({ notes: [] }));
+            },
+        }),
+        {
+            name: 'notes',
+        }
+    )
+);
 
 export const useTimerStore = create<TimerStore>()(
     persist<TimerStore>(
@@ -82,7 +122,6 @@ export const useActiveStore = create<ActiveType>()(
             setTodoActive: () => set((state) => ({ todo: !state.todo })),
             setNoteActive: () => set((state) => ({ note: !state.note })),
             setTimerActive: () => set((state) => ({ timer: !state.timer })),
-
         }),
         {
             name: 'active-components',

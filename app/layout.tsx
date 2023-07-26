@@ -1,10 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider"
 import SiteHeader from '@/components/SiteHeader'
+import { inter } from './fonts'
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata: Metadata = {
   title: 'Mindful Zone',

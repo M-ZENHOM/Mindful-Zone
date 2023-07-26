@@ -12,7 +12,13 @@ export type statusType = {
     todo: boolean
     timer: boolean
     note: boolean
+}
 
+export interface Note {
+    id: number;
+    title: string;
+    completed: boolean;
+    color: string
 }
 export type TodosType = {
     todos: [],
@@ -21,6 +27,13 @@ export type TodosType = {
     updateTodo: () => void
     deleteTodo: () => void
     removeAllTodos: () => void
+}
+export type NotesType = {
+    notes: Note[],
+    addNote: (value: string) => void
+    updateNote: (id: number, title: string) => void;
+    deleteNote: (id: number) => void
+    removeAllNotes: () => void
 }
 export type CounterType = {
     startTimer: () => void

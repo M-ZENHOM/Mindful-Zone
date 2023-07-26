@@ -35,7 +35,7 @@ const CountDown: FC<IProps> = ({ counter, Active }) => {
             <button className='absolute top-3 right-5 text-xl' onClick={handleDelete} >x</button>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-center">{`${formatTime(time)}`}</h1>
             {time === 0 && <Input ref={timeRef} maxLength={4} type="text" onKeyUp={(e) => e.key === "Enter" && handleStart()} placeholder="Set ur timer in mins" />}
-            <div className='space-x-5'>
+            <div className='flex space-x-5'>
                 <Button disabled={time !== 0} onClick={handleStart}>Start</Button>
                 {time !== 0 && <Button onClick={counter?.pauseTimer}>{counter?.isRunning ? "Pause" : "Resume"}</Button>}
                 <Button disabled={time === 0} onClick={counter?.resetTimer}>Reset</Button>
