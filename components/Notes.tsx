@@ -37,7 +37,7 @@ const Notes: FC<NotesProps> = ({ Active, NotesThings }) => {
                 <Button onClick={handleAdd}>Save</Button>
             </Card>
             {NotesThings.notes.map((note) => (
-                <SavedNotes note={note} NotesThings={NotesThings} />
+                <SavedNotes key={note.id} note={note} NotesThings={NotesThings} />
             ))}
         </>
     )
