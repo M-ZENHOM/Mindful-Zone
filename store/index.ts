@@ -14,6 +14,7 @@ interface NotesStore {
     notes: Todo[];
     addNote: (title: string) => void;
     updateNote: (id: number, title: string) => void;
+    updateColor: (id: number, color: string) => void;
     deleteNote: (id: number) => void;
     removeAllNotes: () => void
 }
@@ -77,6 +78,13 @@ export const useNotesStore = create<NotesStore>()(
                 set((state) => ({
                     notes: state.notes.map((note) =>
                         note.id === id ? { ...note, title: newTitle } : note
+                    ),
+                }));
+            },
+            updateColor: (id: number, newColor: string) => {
+                set((state) => ({
+                    notes: state.notes.map((note) =>
+                        note.id === id ? { ...note, color: newColor } : note
                     ),
                 }));
             },

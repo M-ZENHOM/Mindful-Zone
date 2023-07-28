@@ -32,7 +32,7 @@ const Notes: FC<NotesProps> = ({ Active, NotesThings }) => {
     return (
         <>
             <Card className="w-full max-w-sm h-fit min-h-[300px] p-10 space-y-5 rounded-xl relative">
-                <Textarea className='w-full ' ref={noteRef} placeholder="Type your note." />
+                <Textarea className='w-full' ref={noteRef} placeholder="Type your note." />
                 <button className='absolute top-0 right-5 text-xl' onClick={handleClose} >x</button>
                 <Button onClick={handleAdd}>Save</Button>
             </Card>

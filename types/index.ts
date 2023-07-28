@@ -32,6 +32,7 @@ export type NotesType = {
     notes: Note[],
     addNote: (value: string) => void
     updateNote: (id: number, title: string) => void;
+    updateColor: (id: number, color: string) => void;
     deleteNote: (id: number) => void
     removeAllNotes: () => void
 }
